@@ -1,132 +1,175 @@
-enum Status {
-    Found,
-    NotFound,
-}
-
-struct Punto {
-    x: i32,
-    y: i32,
-}
-
 fn main() {
-    // Blocchi condizionali
-    let n = 5;
-
-    if n < 0 {
-        print!("{} is negative", n);
-    } else if n > 0 {
-        print!("{} is positive", n);
-    } else {
-        print!("{} is zero", n);
+    // while
+    let mut count = 0;
+    while count < 10 {
+        println!("count: {}", count);
+        count += 1;
     }
 
-    // Espressioni condizionali
-    let x = 10;
-    let big_x = if x < 10 && x > -20 {
-        println!("{} is small", x);
-        10 * 2
-    } else if x == 10 {
-        println!("{} is 10", x);
-        10
-    } else {
-        println!("{} is big", x);
-        10
+    // breake e continue
+    println!("\nBreak e Continue");
+    let mut count = 1;
+    while count < 10 {
+        if count == 3 {
+            println!("Operazione saltata con valore count = {}", count);
+            count += 1;
+            continue;
+        }
+
+        if count == 5 {
+            println!("Operazione interrotta al valore count = {}", count);
+            break;
+        }
+
+        println!("count: {}", count);
+        count += 1;
+    }
+
+    // for in
+    for num in 1..5 {
+        println!("num: {}", num);
+    }
+
+    for num in 1..=5 {
+        println!("num: {}", num);
+    }
+
+    for num in (1..5).rev() {
+        if num == 2 {
+            println!("Operazione saltata con valore num = {}", num);
+            continue;
+        }
+
+        println!("num: {}", num);
+    }
+
+    // Ignorare il valore dell'iterazione
+    for _ in 0..3 {
+        println!("Ripetizione senza contatore");
+    }
+
+    // Iterare sulle collezioni
+    let nomi = ["Luca", "Marco", "Sara"];
+
+    for nome in nomi.iter() {
+        println!("Ciao, {}", nome);
+    }
+
+    // loop
+    let mut contatore = 1;
+    loop {
+        contatore += 1;
+        if contatore % 2 == 0 {
+            continue;
+        } else {
+            println!("... {}", contatore);
+        }
+        if contatore > 10 {
+            break;
+        }
+    }
+
+    // Esempio di loop che ritorna un valore
+    let mut count = 0;
+
+    let result = loop {
+        count += 1;
+        if count == 3 {
+            println!("three");
+            continue;
+        }
+
+        println!("{}", count);
+
+        if count == 5 {
+            println!("OK, that's enough");
+            break count;
+        }
     };
 
-    println!("{} -> {}", x, big_x);
+    println!("Result: {}", result);
 
-    // Operatore ternario
-    let x = 5;
-    let y = if x > 5 { 10 } else { 20 };
-    println!("{} -> {}", x, y);
+    // Nested loops e labels
+    'outer: loop {
+        println!("Entered the outer loop");
+        'inner: loop {
+            println!("Entered the inner loop");
 
-    let number = Some(42);
-    let result = if number.is_some() {
-        "Valore trovato"
-    } else {
-        "Nessun valore"
+            break 'outer;
+        }
+        println!("This point will never be reached");
+    }
+    println!("Exited the outer loop");
+
+    // Esempio avanzato di nested labeled loops
+    println!("\nnested labeled loops:");
+    let mut count = 0;
+    'counting_up: loop {
+        println!("count: {}", count);
+        let mut remaining = 10;
+        loop {
+            println!("remaining: {}", remaining);
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+        count += 1;
+    }
+    println!("End count = {}", count);
+
+    // Esempio avanzato con continue
+    println!("\nnested labeled loops with continue:");
+    let mut count = 0;
+
+    let result: i32 = 'outer: loop {
+        println!("Entered the outer loop (count = {})", count);
+
+        'inner: loop {
+            println!("Entered the inner loop");
+
+            if count == 3 {
+                println!("Uscita dal ciclo con count = {}", count);
+                // Corretto: break con etichetta verso 'outer
+                break 'outer count;
+            }
+
+            count += 1;
+
+            // Salta il ciclo interno e riprende da 'outer
+            continue 'outer;
+        }
+
+        // Questo non verrà mai eseguito in questo esempio
+        println!("Fine del ciclo interno");
+        break 'outer 999;
     };
 
-    println!("{}", result); // Output: Valore trovato
+    println!("Exited the outer loop with result = {}", result);
 
-    // Espressioni avanzate
-
-    // if let
-    let status = Some(42);
-    if let Some(value) = status {
-        println!("Valore trovato: {}", value);
-    } else {
-        println!("Nessun valore trovato");
-    }
-
-    // match
-    let status = Status::Found;
-    let message = match status {
-        Status::Found => "Valore trovato",
-        Status::NotFound => "Nessun valore trovato",
-    };
-    println!("{}", message);
-
-    // Destrutturazione tuple tramite pattern matching
-    let point = (3, 0);
-    match point {
-        (0, y) => println!("Il punto si trova sull'asse y: {}", y),
-        (x, 0) => println!("Il punto si trova sull'asse x: {}", x),
-        (x, y) => println!("Il punto è nelle coordinate: ({}, {})", x, y),
-    }
-
-    // Destrutturazione struct tramite pattern matching
-    let punto = Punto { x: 0, y: 5 };
-
-    match punto {
-        Punto { x: 0, y } => println!("Il punto si trova sull'asse y a {}", y),
-        Punto { x, y: 0 } => println!("Il punto si trova sull'asse x a {}", x),
-        Punto { x, y } => println!("Il punto è a coordinata ({}, {})", x, y),
-    }
-
-    // Destrutturazione con pattern di referenza
-    let valore = 42;
-    let riferimento = &valore;
-
-    match riferimento {
-        &val => println!("Il valore è: {}", val),
-    }
-
-    // Destrutturzione con riferimento mutabile
-    let valore = 70;
-
-    match valore {
-        ref val => println!("Il valore é: {}", val),
-    }
-
-    // Destrutturazione pattern complessi
-    let valore = Some((10, 20));
-
-    match valore {
-        Some((x, y)) => println!("Valori nella tupla: {}, {}", x, y),
-        None => println!("Nessun valore"),
-    }
-
-    // Quando il pattern matching non è necessario
-    let risultato = divisione(9.0,4.0);
-    match risultato {
-        Some(numero) => {println!("Valore trovato: {}", numero)},
-        None => {}
-    }
-
-    // Alternativa con if let
-    if let Some(numero) = divisione(9.0,4.0) {
-       println!("Risultato ottenuto: {}", numero);
-    }
-
-    // Alternativa con let else
-    let Some(numero) = divisione(9.0, 0.0) else {
-      panic!("Divisione per zero non consentita!");
-    };
-
-    println!("Risultato ottenuto: {}", numero);
+    fizzbuzz();
 }
 
-fn divisione(dividendo: f32, divisore: f32) -> Option<f32> {
-    if divisore != 0.0 { Some(dividendo / divisore) } else { None }
+fn fizzbuzz() {
+  let mut fizz_buzz: i8 = 0;
+	let mut fizz: i8 = 0;
+	let mut buzz: i8 = 0;
+
+	for number in 1..=100 {
+		if number % 3 == 0 && number % 5 == 0 {
+			println!("FizzBuzz");
+			fizz_buzz += 1;
+		} else if number % 3 == 0 {
+			println!("Fizz");
+			fizz += 1;
+		} else if number % 5 == 0 {
+			println!("FizzBuzz");
+			buzz += 1;
+		}
+	}
+
+	println!("\nDa 0 a 100 ci sono totale di {} FizzBuzz, {} Fizz e {} Buzz", fizz_buzz, fizz, buzz);
 }
