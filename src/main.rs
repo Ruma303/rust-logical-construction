@@ -9,7 +9,7 @@ struct Punto {
 }
 
 fn main() {
-    // Blocchi condizionali
+    //% Blocchi condizionali
     let n = 5;
 
     if n < 0 {
@@ -20,7 +20,7 @@ fn main() {
         print!("{} is zero", n);
     }
 
-    // Espressioni condizionali
+    //, Espressioni condizionali
     let x = 10;
     let big_x = if x < 10 && x > -20 {
         println!("{} is small", x);
@@ -35,7 +35,7 @@ fn main() {
 
     println!("{} -> {}", x, big_x);
 
-    // Operatore ternario
+    //, Operatore ternario
     let x = 5;
     let y = if x > 5 { 10 } else { 20 };
     println!("{} -> {}", x, y);
@@ -49,9 +49,10 @@ fn main() {
 
     println!("{}", result); // Output: Valore trovato
 
-    // Espressioni avanzate
 
-    // if let
+    //% Espressioni avanzate
+
+    //, if let
     let status = Some(42);
     if let Some(value) = status {
         println!("Valore trovato: {}", value);
@@ -59,7 +60,7 @@ fn main() {
         println!("Nessun valore trovato");
     }
 
-    // match
+    //, match
     let status = Status::Found;
     let message = match status {
         Status::Found => "Valore trovato",
@@ -67,7 +68,7 @@ fn main() {
     };
     println!("{}", message);
 
-    // Destrutturazione tuple tramite pattern matching
+    //# Destrutturazione tuple tramite pattern matching
     let point = (3, 0);
     match point {
         (0, y) => println!("Il punto si trova sull'asse y: {}", y),
@@ -75,8 +76,8 @@ fn main() {
         (x, y) => println!("Il punto è nelle coordinate: ({}, {})", x, y),
     }
 
-    // Destrutturazione struct tramite pattern matching
-    let punto = Punto { x: 0, y: 5 };
+    //# Destrutturazione struct tramite pattern matching
+    let punto = Punto { x: 5, y: 0 };
 
     match punto {
         Punto { x: 0, y } => println!("Il punto si trova sull'asse y a {}", y),
@@ -84,7 +85,7 @@ fn main() {
         Punto { x, y } => println!("Il punto è a coordinata ({}, {})", x, y),
     }
 
-    // Destrutturazione con pattern di referenza
+    //# Destrutturazione con pattern di referenza
     let valore = 42;
     let riferimento = &valore;
 
@@ -92,7 +93,7 @@ fn main() {
         &val => println!("Il valore è: {}", val),
     }
 
-    // Destrutturzione con riferimento mutabile
+    // Destrutturazione con riferimento mutabile
     let valore = 70;
 
     match valore {
