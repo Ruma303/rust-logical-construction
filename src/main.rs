@@ -1,12 +1,12 @@
 fn main() {
-    // while
+    //% while
     let mut count = 0;
     while count < 10 {
         println!("count: {}", count);
         count += 1;
     }
 
-    // breake e continue
+    //, break e continue
     println!("\nBreak e Continue");
     let mut count = 1;
     while count < 10 {
@@ -25,7 +25,16 @@ fn main() {
         count += 1;
     }
 
-    // for in
+    //, let while
+    let mut name = String::from("Rust");
+
+    while let Some(c) = name.pop() {
+        println!("Carattere estratto: {}", c);
+    }
+
+    println!("Stringa svuotata!");
+
+    //% for in
     for num in 1..5 {
         println!("num: {}", num);
     }
@@ -43,19 +52,20 @@ fn main() {
         println!("num: {}", num);
     }
 
-    // Ignorare il valore dell'iterazione
+    //, Ignorare il valore dell'iterazione
     for _ in 0..3 {
         println!("Ripetizione senza contatore");
     }
 
-    // Iterare sulle collezioni
+    //, Iterare sulle collezioni
     let nomi = ["Luca", "Marco", "Sara"];
 
     for nome in nomi.iter() {
         println!("Ciao, {}", nome);
     }
 
-    // loop
+
+    //% loop
     let mut contatore = 1;
     loop {
         contatore += 1;
@@ -69,7 +79,7 @@ fn main() {
         }
     }
 
-    // Esempio di loop che ritorna un valore
+    //, Esempio di loop expression
     let mut count = 0;
 
     let result = loop {
@@ -89,7 +99,8 @@ fn main() {
 
     println!("Result: {}", result);
 
-    // Nested loops e labels
+
+    //% Nested loops e labels
     'outer: loop {
         println!("Entered the outer loop");
         'inner: loop {
@@ -101,7 +112,7 @@ fn main() {
     }
     println!("Exited the outer loop");
 
-    // Esempio avanzato di nested labeled loops
+    //, Esempio avanzato di nested labeled loops
     println!("\nnested labeled loops:");
     let mut count = 0;
     'counting_up: loop {
@@ -121,7 +132,7 @@ fn main() {
     }
     println!("End count = {}", count);
 
-    // Esempio avanzato con continue
+    //, Esempio avanzato con continue
     println!("\nnested labeled loops with continue:");
     let mut count = 0;
 
@@ -153,23 +164,24 @@ fn main() {
     fizzbuzz();
 }
 
-fn fizzbuzz() {
+/* fn fizzbuzz() {
   let mut fizz_buzz: i8 = 0;
-	let mut fizz: i8 = 0;
-	let mut buzz: i8 = 0;
+    let mut fizz: i8 = 0;
+    let mut buzz: i8 = 0;
 
-	for number in 1..=100 {
-		if number % 3 == 0 && number % 5 == 0 {
-			println!("FizzBuzz");
-			fizz_buzz += 1;
-		} else if number % 3 == 0 {
-			println!("Fizz");
-			fizz += 1;
-		} else if number % 5 == 0 {
-			println!("FizzBuzz");
-			buzz += 1;
-		}
-	}
+    for number in 1..=100 {
+        if number % 3 == 0 && number % 5 == 0 {
+            println!("FizzBuzz");
+            fizz_buzz += 1;
+        } else if number % 3 == 0 {
+            println!("Fizz");
+            fizz += 1;
+        } else if number % 5 == 0 {
+            println!("FizzBuzz");
+            buzz += 1;
+        }
+    }
 
-	println!("\nDa 0 a 100 ci sono totale di {} FizzBuzz, {} Fizz e {} Buzz", fizz_buzz, fizz, buzz);
+    println!("\nDa 0 a 100 ci sono totale di {} FizzBuzz, {} Fizz e {} Buzz", fizz_buzz, fizz, buzz);
 }
+ */
